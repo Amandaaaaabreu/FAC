@@ -1,0 +1,8 @@
+.data
+hello: ascuz "Ola Mundo!"
+.text
+
+main: 
+     la $a0, hello
+     li $vo, 4 
+Sysc all
