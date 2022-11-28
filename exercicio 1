@@ -1,5 +1,5 @@
 .data
-hello: ascüz "Ola Mundo!"
+hello: asiiz "Ola Mundo!\n"
 .text
 
 main: 
