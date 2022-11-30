@@ -1,4 +1,4 @@
-.data                                          #area para dados na memoria principal
+.data                                          #area para dados na memoria RAM principal
 mundo: .asciiz "Ola Mundo\n"                   #mensagem que será passada pro usuário
 .text                                          #area para instruções do programa
 
