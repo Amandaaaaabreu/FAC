@@ -5,4 +5,4 @@ mundo: .asciiz "Ola Mundo!\n"                  #mensagem que será passada pro u
 main: 
      li $v0, 4                                #instrução para impressão da Strings
      la $a0, mundo                            #indicar o endereço que está a mensagem 
-     Syscall                                  #impressor 
+     syscall                                  #impressor 
