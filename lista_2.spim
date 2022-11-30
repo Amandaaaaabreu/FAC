@@ -4,7 +4,7 @@
 
 main: 
      li $v0, 5                 #li um inteiro
-     syscall                   #faça
+     syscall                   #faÃ§a
      
      move $t0,$v0             #salva t0 em v0
      
@@ -19,7 +19,7 @@ main:
      move $a0, $t2          
      syscall 
      
-     li $v0, 10             #finaliza o programa
+     li $v0, 10             #finalizando o programa
      syscall
      
     
