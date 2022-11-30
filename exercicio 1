@@ -1,8 +1,8 @@
-.data
-hello: asciiz "Ola Mundo!\n"
-.text
+.data                                          #area para dados na memoria principal
+mundo: .asciiz "Ola Mundo!\n"                  #mensagem que será passada pro usuário
+.text                                          #area para instruções do programa
 
 main: 
-     la $a0, hello
-     li $vo, 4 
-Sysc all
+     la $a0, mundo                            #indicar o endereço que está a mensagem 
+     li $vo, 4                                #instrução para impressão da Strings
+     Syscall                                  #impressor / faça
