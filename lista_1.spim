@@ -1,8 +1,8 @@
 .data                                          #area para dados na memoria principal
-mundo: .asciiz "Ola Mundo!\n"                  #mensagem que ser· passada pro usu·rio
-.text                                          #area para instruÁıes do programa
+mundo: .asciiz "Ola Mundo!\n"                  #mensagem que ser√° passada pro usu√°rio
+.text                                          #area para instru√ß√µes do programa
 
 main: 
-     li $v0, 4                                #instruÁ„o para impress„o da Strings
-     la $a0, mundo                            #indicar o endereÁo que est· a mensagem 
-     Syscall                                  #impressor / faÁa
+     li $v0, 4                                #instru√ß√£o para impress√£o da Strings
+     la $a0, mundo                            #indicar o endere√ßo que est√° a mensagem 
+     Syscall                                  #impressor 
