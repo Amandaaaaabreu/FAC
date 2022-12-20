@@ -1,9 +1,7 @@
 .data                                          #area para dados na memoria RAM principal
-mundo: .asciiz "Ola Mundo\n"                   #mensagem que será passada pro usuário
+     mundo: .asciiz "Ola Mundo\n"                   #mensagem que será passada pro usuário
 .text                                          #area para instruções do programa
 
-
-.text                                          #area para instruções do programa
 main: 
      li $v0, 4                                #instrução para impressão da Strings
      la $a0, mundo                            #indicar o endereço que está a mensagem 
