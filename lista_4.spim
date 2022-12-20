@@ -1,0 +1,192 @@
+.data
+
+    textoADD: .asciiz "ADD: "
+    textoSUB: .asciiz "SUB: "
+    textoAND: .asciiz "AND: "
+    textoOR: .asciiz "OR: "
+    textoXOR: .asciiz "XOR: "
+    textoMASK: .asciiz "MASK: "
+    textoSLL: .asciiz "SLL("
+    textoSRL: .asciiz "SRL("
+    parentese: .asciiz "):"
+    linha: .asciiz "\n"
+         
+.text
+
+main:
+
+    li $v0, 5               # ler um inteiro
+    syscall                 # salvar
+    add $t0, $v0, $zero     # ler A
+     
+    li $v0, 5               # ler um inteiro
+    syscall                 # salvar
+    add $t1, $v0, $zero     # ler B
+     
+    li $v0, 5               # ler um inteiro
+    syscall                 # salvar
+    add $t2, $v0, $zero     # ler C
+   
+   ################## SOMANDO A e B
+    
+   add $s1, $t0, $t1         #somando a e b 
+   li $v0, 4                 #imprimindo a string ADD
+   la $a0, textoADD
+   syscall
+    
+   li $v0, 1                 #imprimindo a soma de A e B
+   add $a0, $s1, $zero
+   syscall
+    
+   li $v0, 4                 #imprimindo a string 
+   la $a0, linha
+   syscall
+    
+    
+   ################## SUBTRAINDO  A e B
+    
+   sub $s2, $t0, $t1
+   li $v0, 4                    #imprimindo a string SUB
+   la $a0, textoSUB
+   syscall
+    
+   li $v0, 1                    #imprimindo a subtra��o de A e B
+   add $a0, $s2, $zero
+   syscall
+    
+   li $v0, 4
+   la $a0, linha             #quebrar a linha
+   syscall
+    
+    
+   ##################### OPERA��O AND 
+    
+   and $s3, $t0, $t1                    #armazenando em t3
+   li $v0, 4                            #imprimindo a String and 
+   la $a0, textoAND
+   syscall
+    
+   li $v0, 1                          #imprimindo A e B da AND 
+   add $a0, $s3, $zero
+   syscall 
+    
+   li $v0, 4
+   la $a0, linha                   #quebrar a linha
+   syscall
+    
+   #################### OPERA��O OR 
+   
+   or $s4, $t0, $t1                    #armazenando em t3
+   li $v0, 4                           #imprimindo a String or 
+   la $a0, textoOR
+   syscall 
+   
+   li $v0, 1                          #imprimindo A e B de OR
+   add $a0, $s4, $zero
+   syscall 
+   
+   li $v0, 4 
+   la $a0, linha                   #quebrar a linha
+   syscall
+   
+   
+   ###################### OPERA��O XOR 
+   
+   xor $s5, $t0, $t1
+   li $v0, 4                           #imprimindo a String xor 
+   la $a0, textoXOR
+   syscall
+   
+   li $v0, 1                           #imprimindo A e B da XOR
+   add $a0, $s5, $zero                      #movendo t3 para a0
+   syscall
+   
+   li $v0, 4 
+   la $a0, linha                      #quebrar a linha
+   syscall
+   
+   ########################### OPERA��O MASK
+   
+   andi $s6, $t2, 31
+   li $v0, 4                          #imprimindo a String do MASK 
+   la $a0, textoMASK
+   syscall 
+   
+   li $v0, 1                          #imprimindo C e 31 da  MASK
+   add $a0, $s6, $zero
+   syscall 
+   
+   li $v0, 4 
+   la $a0, linha
+   syscall 
+   
+   ########################## OPERA��O SLL 
+   
+   sllv $s7, $t0, $s6              #armazenando t0 e t3 em t5  / usamos o v para variavel   
+   li $v0, 4                        #imprimindo a string do SLL 
+   la $a0, textoSLL
+   syscall 
+   
+   li $v0, 1                       #imprimindo o MASK e A em SLL 
+   add $a0, $s6, $zero
+   syscall 
+   
+   li $v0, 4                        #imprimindo ): 
+   la $a0, parentese
+   syscall 
+   
+   li $v0, 1                       #imprimindo o MASK e A em SLL 
+   add $a0, $s7, $zero
+   syscall 
+   
+   li $v0, 4 
+   la $a0, linha                  #quebrar linha 
+   syscall
+   
+   ########################## OPERA��O SRL
+   
+   srlv $s0, $t1, $s6
+   li $v0, 4                      #imprimindo a String SRL
+   la $a0, textoSRL
+   syscall
+   
+   li $v0, 1                       #imprimindo o MASK e A em SLL 
+   add $a0, $s6, $zero
+   syscall 
+   
+   li $v0, 4                        #imprimindo ): 
+   la $a0, parentese
+   syscall 
+   
+   li $v0, 1                 #imprimindo o MASK e B em SRL
+   add $a0, $s0, $zero
+   syscall 
+   
+   li $v0, 4 
+   la $a0, linha                  #quebrar linha 
+   syscall
+   
+   li $v0, 10
+   syscall
+   
+exit:
+
+   li $v0, 10
+   syscall
+   
+   
+   
+   
+   
+   
+    
+    
+    
+
+     
+     
+    
+    
+     
+     
+    

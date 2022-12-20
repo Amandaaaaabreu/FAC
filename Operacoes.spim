@@ -1,0 +1,182 @@
+.data
+
+    textoADD: .asciiz "ADD: "
+    textoSUB: .asciiz "SUB: "
+    textoAND: .asciiz "AND: "
+    textoOR: .asciiz "OR: "
+    textoXOR: .asciiz "XOR: "
+    textoMASK: .asciiz "MASK: "
+    textoSLL: .asciiz "SLL("
+    textoSRL: .asciiz "SRL("
+    parentese: .asciiz "):"
+    linha: .asciiz "\n"
+
+.text
+
+main:
+
+    li $v0, 5 #Lendo um inteiro
+    syscall #Salvar
+    add $t0, $v0, $zero # Ler A
+
+    li $v0, 5 #Lendo um inteiro
+    syscall #Salvar
+    add $t1, $v0, $zero # Ler B
+
+    li $v0, 5 #Lendo um inteiro
+    syscall #Salvar
+    add $t2, $v0, $zero # Ler C
+    
+    bgt $t0, 255, exit # if($t0 > 255) = exit
+    bgt $t1, 255, exit # if($t1 > 255) = exit
+    bgt $t2, 255, exit # if($t2 > 255) = exit
+
+
+    #ADD entre A e B
+
+    add $s1, $t0, $t1 #$s1 = a + b 
+    li $v0, 4 #Imprimir uma string
+    la $a0, textoADD #coloca o texto em $a0
+    syscall #Salvar
+
+    li $v0, 1 #Imprimir o inteiro em $v0
+    add $a0, $s1, $zero #Colocar o inteiro em $a0
+    syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Colocar a quebra de linha em $a0
+    syscall #Salvar
+
+    #SUB entre A e B
+
+    sub $s2, $t0, $t1 #s2 = a - b
+    li $v0, 4 #Imprimir uma string
+    la $a0, textoSUB #coloca o texto em $a0
+    syscall #Salvar
+
+    li $v0, 1 #Imprimir um inteiro
+    add $a0, $s2, $zero #Colocar o inteiro em $a0
+    syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Colocar a quebra de linha em $a0
+    syscall #Salvar
+
+    #AND entre A e B
+
+    and $s3, $t0, $t1 #Faz o AND bit a bit e armazena em $s3
+    li $v0, 4 #Imprimir uma string
+    la $a0, textoAND #Coloca a string em $a0
+    syscall #Salvar
+
+    li $v0, 1 #Imprimir um inteiro
+    add $a0, $s3, $zero #Colocar o inteiro em $a0
+    syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Coloca a quebra de linha em $a0
+    syscall #Salvar
+
+    #OR entre A e B
+
+    or $s4, $t0, $t1 #Faz o OR bit a bit e armazena em $s4
+    li $v0, 4 #Imprimir uma string
+    la $a0, textoOR #Coloca o texto em $a0
+    syscall #Salvar
+
+    li $v0, 1 #Imprimir um inteiro
+    add $a0, $s4, $zero #Coloca o inteiro em #a0
+    syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Coloca a quebra de linha em $a0
+    syscall #Salvar
+
+    #XOR entre A e B
+
+    xor $s5, $t0, $t1 #Faz o XOR bit a bit e armazena em $s5
+    li $v0, 4 #Imprimir uma string
+    la $a0, textoXOR #Coloca a string em $a0
+    syscall #Salvar
+
+    li $v0, 1 #Imprimir um inteiro
+    add $a0, $s5, $zero #Coloca o inteiro em $a0
+    syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Coloca a quebra de linha em $a0
+    syscall #Salvar
+    
+    #MASK entre c e 31
+
+    andi $s6, $t2, 31 #Faz o and com o imediato 31
+    li $v0, 4 #Imprimir uma string
+    la $a0, textoMASK # Colocar a string em $a0
+    syscall #Salvar
+
+    li $v0, 1 #Imprimir um inteiro
+    add $a0, $s6, $zero #Colocar o inteiro em $a0
+    syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Coloca a quebra de linha em $a0
+    syscall #Salvar
+
+    #SLL entre m e A(t0)
+
+    sllv $s7, $t0, $s6 #Faz p SLL em $s7
+    li $v0, 4 #Imprimir uma string
+	la $a0, textoSLL # Colocar a string em $a0
+	syscall #Salvar
+
+
+    li $v0, 1 #Imprimir um inteiro
+	add $a0, $s6, $zero  #Colocar o inteiro em $a0
+	syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+	la $a0, parentese # Colocar a string em $a0
+	syscall #Salvar
+
+    li $v0, 1#Imprimir um inteiro
+	add $a0, $s7, $zero #Colocar o inteiro em $a0
+	syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Coloca a quebra de linha em $a0
+	syscall #Salvar
+
+    #SRL entre m(MASK) B(t1)
+
+    srlv $s0, $t1, $s6 #Faz o SRL em $s8
+    li $v0, 4 #Imprimir uma string
+	la $a0, textoSRL # Colocar a string em $a0
+	syscall #Salvar
+
+
+    li $v0, 1 #Imprimir um inteiro
+	add $a0, $s6, $zero #Colocar o inteiro em $a0
+	syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+	la $a0, parentese # Colocar a string em $a0
+	syscall #Salvar
+
+    li $v0, 1 #Imprimir um inteiro
+	add $a0, $s0, $zero #Colocar o inteiro em $a0
+	syscall #Salvar
+
+    li $v0, 4 #Imprimir uma string
+    la $a0, linha #Coloca a quebra de linha em $a0
+	syscall #Salvar
+    
+    #Encerrar
+
+    li $v0, 10
+    syscall
+
+
+exit: #encerra
+
+    li $v0, 10
+    syscall
