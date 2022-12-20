@@ -4,11 +4,7 @@
 
 main: 
      li $v0, 5                 #li um inteiro
-<<<<<<< HEAD
-     syscall                   #fa�a
-=======
      syscall                   #faça
->>>>>>> e7530e2f34a0f8d42651f733dfb284ddddaa40a5
      
      move $t0,$v0             #salva t0 em v0
      
@@ -17,19 +13,8 @@ main:
      
      move $t1,$v0             #salva t1 em v0
      
-     add $t2, $t0, $t1       #adicionando t0 e t1 em t2
+     add $t2, $t0, $t1        #adicionando t0 e t1 em t2
      
-<<<<<<< HEAD
-     li $v0, 1               #imprimir um inteiro
-     move $a0, $t2          
-     syscall 
-     
-     li $v0, 10             #finaliza o programa
-     syscall
-     
-    
-     
-=======
      li $v0, 1                #imprimir um inteiro
      move $a0, $t2          
      syscall 
@@ -39,4 +24,3 @@ main:
      
     
      
->>>>>>> e7530e2f34a0f8d42651f733dfb284ddddaa40a5
