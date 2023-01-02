@@ -1,0 +1,131 @@
+.data
+    const32: .float 32.0
+	const273: .float 273.0
+	celsius: .asciiz "C"
+	fht: .asciiz "F"
+	kelvin: .asciiz "K"
+	escala1: .space 25
+	escala2: .space 25
+	zerando: .float 0.0
+	const5: .float 5.0
+	const9: .float 9.0
+	
+.text
+	
+	
+	li $v0, 8
+	la $a0, escala1
+	la $a1,25
+	
+	syscall
+	
+	move $t1,$a0
+	
+	
+	li $v0, 8
+	la $a0, escala2
+	la $a1,25
+	
+	syscall
+	
+	move $t2,$a0
+	
+	
+	
+	li $v0, 6
+	syscall
+	
+	lwc1 $f1,zerando
+	add.s $f12, $f1 ,$f0
+	
+	
+	la $t3,celsius
+	la $t4,fht
+	la $t5,kelvin
+	
+	
+	beq $t1,$t3,C
+	beq $t1,$t4,F
+	beq $t1,$t5,K
+	
+	
+	
+	
+C:	
+	beq $t2,$t4,CtF
+	beq $t2,$t5,CtK
+	
+	j saindo
+
+CtF:
+		lwc1 $f16,const5($gp)
+		lwc1 $f18,const9($gp)
+		div.s $f16 ,$f16 , $f18 
+		lwc1 $f18 , const32 ( $gp ) 
+		mul.s $f16 , $f16 , $f12
+		add.s $f18 , $f18 , $f16 
+		jr $ra
+
+CtK:
+		lwc1 $f18,const273($gp)
+		add.s $f18,$f18,$f12 
+		jr $ra
+
+F:				
+	beq $t2,$t3,FtC
+	beq $t2,$t5,FtK
+	
+	j saindo
+			
+FtC:
+		lwc1 $f16 , const5 ( $gp )
+		lwc1 $f18 , const9 ( $gp )
+		div.s $f16 ,$f16 , $f18
+		lwc1 $f18 , const32 ( $gp )
+		sub.s $f18 , $f12 , $f18
+		mul.s $f0 , $f16 , $f18
+		jr $ra
+FtK:
+		j FtC
+	
+		lwc1 $f19,const273($gp)
+		add.s $f18,$f19,$f18 
+		jr $ra
+		
+K:
+	beq $t2,$t3,KtC
+	beq $t2,$t4,KtF
+	
+	j saindo
+	
+KtF:
+		j KtC
+	
+		lwc1 $f16,const5($gp)
+		lwc1 $f19,const9($gp)
+		div.s $f16 ,$f16 , $f19 
+		lwc1 $f19 , const32 ( $gp ) 
+		mul.s $f16 , $f16 , $f18
+		add.s $f18 , $f19 , $f16
+		jr $ra
+	
+	
+
+
+KtC:
+		lwc1 $f18,const273($gp)
+		sub.s $f18,$f12,$f18 
+		jr $ra
+
+saindo:
+
+	li $v0,2
+	syscall
+	
+	
+	
+	
+	
+	
+	
+	
