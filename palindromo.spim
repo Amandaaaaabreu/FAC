@@ -1,0 +1,71 @@
+.data
+    
+	palavra: .space 200
+	quebra_linha: .asciiz "\n"
+
+.text
+
+    main:
+        
+        li $v0, 5   #tamanho da palavra
+        syscall
+        move $s1, $v0
+
+        
+        li $v0, 8	 #lendo a palavra
+        la $a0, palavra
+        la $a1, 200
+        syscall
+
+	
+	la $t0, palavra  #armazenando a palvra dentro do t0 e t1 
+	la $t1, palavra
+
+	loop: 
+		lb $t3, ($t1)
+		beq $t3, $zero, tras 
+		add $t1, $t1, 1 
+		j loop 
+
+	
+	tras:
+		sub $t1, $t1, 2
+
+	verifica:
+		bge $t0, $t1, palindromo
+		lb $t3, ($t0) 
+		lb $t4, ($t1) 
+		bne $t3, $t4, nao_palindromo 
+		
+		
+		add $t0, $t0, 1 
+		sub $t1, $t1, 1 
+		
+		j verifica
+	
+		
+	nao_palindromo:   # == palindromo = 0
+		li $v0, 1
+		move $a0, $zero
+		syscall
+		j sair
+	
+	
+	palindromo:      # =/ palindromo = 1
+		
+		add $s3, $zero, 1
+		
+		
+		li $v0, 1
+		move $a0, $s3
+		syscall
+		j sair
+	sair:
+		
+		li $v0, 4          # Printando e fazendo a quebra de linha
+		la $a0, quebra_linha
+		syscall
+		
+		
+		li $v0, 10	# fechando o programa
+       		syscall

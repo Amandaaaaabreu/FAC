@@ -1,0 +1,49 @@
+# s0 = quantidade de questoes
+# s1 = Gabarito
+# s2 = Marcadas
+# s3 = Acertos = Resultado
+.data
+resposta_correta: .space 1024
+assinaladas: .space 1024
+quebra_linha: .asciiz "\n"
+.text
+main:
+ addi $v0, $0, 5 # system call #5 - input int
+ syscall # execute
+ move $s0, $v0 # $s0 = $v0
+ addi $v0, $0, 8 # system call #8 - input string
+ la $a0, resposta_correta
+ li $a1, 1024
+ syscall # execute
+ la $s1, resposta_correta
+ addi $v0, $0, 8 # system call #8 - input string
+ la $a0, assinaladas
+ li $a1, 1024
+ syscall # execute
+ la $s2, assinaladas
+init:
+ move $t0, $zero # $t0 = 0 = contador
+ move $s3, $zero # $s3 = 0 = resultado
+check:
+ beq $t0, $s0, exit # if $t0 == $s0 = maximo then goto exit
+ lb $t4, 0($s1)
+ lb $t5, 0($s2)
+ jal valid
+ addi $t0, $t0, 1 # $t0 = $t0 + 1
+ addi $s1, $s1, 1 # $s1 = $s1 + 1 -> Incrementando um byte para locomover o caracter
+ addi $s2, $s2, 1 # $s2 = $t0 + 1 -> Incrementando um byte para locomover o caracter
+ j check
+valid:
+ bne $t4, $t5, return # erro
+ addi $s3, $s3, 1 # $s3 = $s3 + 1
+return:
+ jr $ra # jump to $ra
+exit:
+ addi $v0, $0, 1 # system call #1 - print int
+ add $a0, $0, $s3
+ syscall # execute
+ li $v0, 4 # system call #4 - print string
+ la $a0, quebra_linha
+ syscall # execute
+ li $v0, 10 # fecha o programa
+ syscall
